@@ -147,6 +147,7 @@ def IsSlow(slave):
   """Filter on slaves that are slow."""
   return slave.is_slow
 
+
 def GenerateDoc(slave):
   """Filter on slaves that generate doxygen doc."""
   return slave.generate_doc
