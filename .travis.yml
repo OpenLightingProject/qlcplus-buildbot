@@ -2,23 +2,36 @@
 
 language: python
 
-python:
-  - "2.6"
-  - "2.7"
-#  - "3.2" # buildbot does not currently support Python 3
-#  - "3.3" # buildbot does not currently support Python 3
-#  - "pypy" # issues with travis halting during buildbot setup
+matrix:
+  fast_finish: true
+  include:
+   - env: TASK='flake8'
+   - env: TASK='pychecker'
+   - python: "2.6"
+     env: TASK='checkconfig'
+   - python: "2.7"
+     env: TASK='checkconfig'
+#   - python: "3.2" # buildbot does not currently support Python 3
+#     env: TASK='checkconfig'
+#  - python: "3.3" # buildbot does not currently support Python 3
+#     env: TASK='checkconfig'
+#  - python: "pypy" # issues with travis halting during buildbot setup
+#     env: TASK='checkconfig'
 
 script:
   - "bash -ex .travis-ci.sh"
 
 before_install:
+  # Remove some flaky repos that keep timing out
+  - sudo rm /etc/apt/sources.list.d/mongodb.list
   # We need a minimum of 0.8.6, so use a PPA
   - sudo add-apt-repository ppa:danirus/buildbot -y
   - sudo apt-get update -qq
 
 install:
   - sudo apt-get install -qq buildbot
+  - if [ "$TASK" = "flake8" ]; then sudo pip install flake8; fi
+  - if [ "$TASK" = "pychecker" ]; then sudo pip install http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
 
 #notifications:
 #  irc:
