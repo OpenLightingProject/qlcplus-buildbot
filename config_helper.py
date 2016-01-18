@@ -16,13 +16,14 @@
 
 import os
 
+
 def LoadConfig(config_file):
   """Load the buildbot config from a config file."""
   config = {}
-  globals = {
+  global_dict = {
     'Slave': SlaveConfig,
   }
-  execfile(config_file, globals, config)
+  execfile(config_file, global_dict, config)
   return config
 
 
@@ -126,17 +127,21 @@ class BuildSlave(object):
   def no_build(self):
     return self._no_build
 
+
 def HasCPPLintFilter(slave):
   """Filter on slaves that have C++ lint installed."""
   return slave.has_cpp_lint
+
 
 def HasJSLintFilter(slave):
   """Filter on slaves that have JS lint installed."""
   return slave.has_js_lint
 
+
 def HasTCMalloc(slave):
   """Filter on slaves that have tcmalloc installed."""
   return slave.has_tcmalloc
+
 
 def IsSlow(slave):
   """Filter on slaves that are slow."""
@@ -146,13 +151,16 @@ def GenerateDoc(slave):
   """Filter on slaves that generate doxygen doc."""
   return slave.generate_doc
 
+
 def GenerateMan(slave):
   """Filter on slaves that generate man pages."""
   return slave.generate_man
 
+
 def HasBuild(slave):
   """Filter on slaves that perform builds."""
   return not slave.no_build
+
 
 class SlaveStore(object):
   """Holds the BuildSlave objects."""
