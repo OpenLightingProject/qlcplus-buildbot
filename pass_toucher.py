@@ -19,16 +19,21 @@
 import os
 import config_helper
 
-config = config_helper.LoadConfig('build.config')
-slaves = config_helper.SlaveStore(config['SLAVES'])
 
-print "Starting"
+def main():
+  config = config_helper.LoadConfig('build.config')
+  slaves = config_helper.SlaveStore(config['SLAVES'])
 
-for slave in slaves.GetSlaves():
-  print "Checking slave %s" % slave.name()
-  pass_path = slave.password_file_path();
-  if (not os.path.isfile(pass_path)) and (not os.path.exists(pass_path)):
-    print "\tPassword file %s doesn't exist, creating a dummy one" % pass_path
-    open(pass_path, "a").close()
-    if os.path.isfile(pass_path):
-      print "\tSuccessfully created a dummy file at %s" % pass_path
+  print "Starting"
+
+  for slave in slaves.GetSlaves():
+    print "Checking slave %s" % slave.name()
+    pass_path = slave.password_file_path()
+    if (not os.path.isfile(pass_path)) and (not os.path.exists(pass_path)):
+      print "\tPassword file %s doesn't exist, creating a dummy one" % pass_path
+      open(pass_path, "a").close()
+      if os.path.isfile(pass_path):
+        print "\tSuccessfully created a dummy file at %s" % pass_path
+
+if __name__ == '__main__':
+  main()
