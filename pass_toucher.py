@@ -35,5 +35,6 @@ def main():
       if os.path.isfile(pass_path):
         print "\tSuccessfully created a dummy file at %s" % pass_path
 
+
 if __name__ == '__main__':
   main()
