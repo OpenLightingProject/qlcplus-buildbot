@@ -19,11 +19,6 @@ matrix:
 script:
   - "bash -ex .travis-ci.sh"
 
-before_install:
-  # We need a minimum of 0.8.6, so use a PPA
-  - sudo add-apt-repository ppa:danirus/buildbot -y
-  - sudo apt-get update -qq
-
 install:
   - sudo apt-get install -qq buildbot
   - if [ "$TASK" = "flake8" ]; then sudo pip install flake8; fi
