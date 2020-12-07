@@ -4,7 +4,7 @@
 # It runs the appropriate commands depending on the task requested.
 
 if [[ $TASK = 'flake8' ]]; then
-  flake8 --max-line-length 80 --exclude *_pb2.py,.git,__pycache --ignore E111,E114,E121,E129 config_helper.py master.cfg pass_toucher.py
+  flake8 --max-line-length 80 --exclude *_pb2.py,.git,__pycache --ignore E111,E114,E121,E129,W504 config_helper.py master.cfg pass_toucher.py
   # build.config has to be checked seperately, as it's not strictly a Python file
   flake8 --max-line-length 80 --exclude *_pb2.py,.git,__pycache --ignore E111,E114,E121,E129,F821 build.config
 elif [[ $TASK = 'pychecker' ]]; then
