@@ -7,8 +7,6 @@ matrix:
   include:
    - env: TASK='flake8'
    - env: TASK='pychecker'
-   - python: "2.6"
-     env: TASK='checkconfig'
    - python: "2.7"
      env: TASK='checkconfig'
 #   - python: "3.2" # buildbot does not currently support Python 3
