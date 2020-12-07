@@ -23,7 +23,10 @@ script:
 install:
   - sudo apt-get install -qq buildbot
   - if [ "$TASK" = "flake8" ]; then sudo pip install flake8; fi
-  - if [ "$TASK" = "pychecker" ]; then sudo pip install http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
+# If this causes SSL errors, then Sourceforge is probably in disaster recovery mode and needing Javascript. Could switch to a specific mirror, e.g. kent.dl.sourceforge.net
+  - if [ "$TASK" = "pychecker" -o "$TASK" = "pychecker-wip" ]; then pip install --user http://sourceforge.net/projects/pychecker/files/pychecker/0.8.19/pychecker-0.8.19.tar.gz/download; fi
+# This is a very bodgy workaround to the fact that the pip install of the archive doesn't seem to work properly now on Travis
+  - if [ "$TASK" = "pychecker" -o "$TASK" = "pychecker-wip" ]; then sudo mkdir -p /pychecker/; sudo ln -s /home/travis/.local/lib/python2.7/site-packages/pychecker/checker.py /pychecker/checker.py; fi
 
 #notifications:
 #  irc:
